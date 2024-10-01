@@ -1,7 +1,7 @@
 import Input from "@/components/InputForm";
 
 
-export default function SingupForm() {
+export default function SignupForm() {
     return (
         <div className="top-[194px]  left-[816px] w-[503px] h-[436px] bg-[#FFFFFF] shadow-lg rounded-lg opacity-100 p-6 my-10">
             <div className="w-full max-w-md text-center text-zinc-900">

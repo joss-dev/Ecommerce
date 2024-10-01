@@ -1,5 +1,5 @@
 import Input from "@/components/InputForm";
-
+import ButtonForm from "@/components/button-form";
 
 export default function LoginForm() {
     return (
@@ -22,6 +22,7 @@ export default function LoginForm() {
                         width={14}
                         height={10}
                     />
+                    <ButtonForm text="Login" />
                 </form>
             </div>
         </div>

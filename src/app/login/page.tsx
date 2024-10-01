@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import LoginForm from "@/components/form";
 
 export default function Login() {
     return (
@@ -7,7 +8,7 @@ export default function Login() {
               <Logo />
             </div>
             <div className="w-1/2 flex items-center justify-center bg-white">
-              <h2>formulario</h2>
+              <LoginForm />
             </div>
           </div>
     );

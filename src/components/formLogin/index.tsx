@@ -3,7 +3,7 @@ import ButtonForm from "@/components/button-form";
 
 export default function LoginForm() {
     return (
-        <div className="bg-white shadow-lg rounded-lg p-6 max-w-sm w-full mx-auto md:my-10 min-h-screen md:min-h-0 flex flex-col justify-center">
+        <div className="bg-[#FFFFFF] shadow-xl rounded-lg p-6 max-w-sm w-full mx-auto md:my-10 min-h-screen md:min-h-0 flex flex-col justify-center">
             <div className="text-center text-zinc-900 mb-8">
                 <h2 className="text-3xl font-bold mb-1">Login</h2>
                 <h2 className="text-1xl font-light mb-8">Acces to our dashboard</h2>

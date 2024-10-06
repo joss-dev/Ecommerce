@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 <Logo />
             </div>
 
-            <div className="w-full md:w-1/2 flex items-center justify-center bg-[#f5f5f5]">
+            <div className="w-full md:w-1/2 flex items-center justify-center bg-[#F7FAFC]">
                 {children}
             </div>
         </div>

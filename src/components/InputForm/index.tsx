@@ -4,20 +4,21 @@ interface InputProps {
   type: string;
   placeholder: string;
   iconSrc: string;
-  width : number;
-  height : number;
+  width: number;
+  height: number;
 }
 
-export default function InputForm({ type, placeholder, iconSrc, width, height }: InputProps) {
+export default function InputForm({
+  type,
+  placeholder,
+  iconSrc,
+  width,
+  height,
+}: InputProps) {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        <Image 
-          src={iconSrc} 
-          alt="icon" 
-          width={width} 
-          height={height} 
-        />
+        <Image src={iconSrc} alt="icon" width={width} height={height} />
       </div>
       <input
         type={type}

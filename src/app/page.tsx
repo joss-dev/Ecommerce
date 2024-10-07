@@ -1,5 +1,9 @@
+import NavBar from "@/components/navbar";
+
 export default function Home() {
   return (
-    <h1>hola mundo</h1>
-    );
+    <NavBar>
+      <h1 className="mt-9">hola mundo</h1>
+    </NavBar>
+  );
 }

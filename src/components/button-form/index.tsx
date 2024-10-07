@@ -1,5 +1,5 @@
-interface ButtonFormProps { 
-    text: string;
+interface ButtonFormProps {
+  text: string;
 }
 
 export default function ButtonForm({ text }: ButtonFormProps) {

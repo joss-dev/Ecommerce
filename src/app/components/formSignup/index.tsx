@@ -1,5 +1,5 @@
-import Input from "@/components/InputForm";
-import ButtonForm from "@/components/button-form";
+import Input from "@/app/components/InputForm";
+import ButtonForm from "@/app/components/button-form";
 
 export default function SignupForm() {
   return (

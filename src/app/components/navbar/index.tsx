@@ -1,8 +1,4 @@
-interface NavBarProps {
-  children: React.ReactNode;
-}
-
-export default function NavBar({ children }: NavBarProps) {
+export default function NavBar() {
   return (
     <>
       <nav>
@@ -18,7 +14,6 @@ export default function NavBar({ children }: NavBarProps) {
           </li>
         </ul>
       </nav>
-      {children}
     </>
   );
 }

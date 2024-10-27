@@ -2,34 +2,34 @@
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 // MODELS
-import Patient from "./model";
+import Customer from "./model";
 // DAOS
 import UserDAO from "../user/dao";
 // DTOS
-import PatientDto from "./dto";
+import CustomerDto from "./dto";
 // UTILS
 import HttpError from "../../utils/HttpError.utils";
 // CONSTANTS
 import HTTP_STATUS from "../../constants/HttpStatus";
 // INTERFACES
 import {
-  IPatient,
-  PatientCreateFields,
-  PatientResponse,
-  PatientLoginFields,
+  ICustomer,
+  CustomerCreateFields,
+  CustomerResponse,
+  CustomerLoginFields,
 } from "./interface";
 
-export default class PatientService {
-  static async createPatient(
-    patient: PatientCreateFields
-  ): Promise<PatientResponse> {
+export default class CustomerService {
+  static async createCustomer(
+    customer: CustomerCreateFields
+  ): Promise<CustomerResponse> {
     try {
-      const patientDao = new UserDAO(Patient);
-      const patientFound = await patientDao.find({
-        email: patient.email,
+      const customerDao = new UserDAO(Customer);
+      const customerFound = await customerDao.find({
+        email: customer.email,
       });
 
-      if (patientFound && patientFound.length > 0) {
+      if (customerFound && customerFound.length > 0) {
         throw new HttpError(
           "User already exists",
           "USER_ALREADY_EXISTS",
@@ -37,14 +37,14 @@ export default class PatientService {
         );
       }
 
-      const patientPayload: IPatient = new Patient({
-        ...patient,
+      const customerPayload: ICustomer = new Customer({
+        ...customer,
         createdAt: new Date(),
       });
 
-      const patientCreated: IPatient = await patientDao.create(patientPayload);
+      const customerCreated: ICustomer = await customerDao.create(customerPayload);
 
-      if (!patientCreated) {
+      if (!customerCreated) {
         throw new HttpError(
           "User not created",
           "USER_NOT_CREATED",
@@ -52,8 +52,8 @@ export default class PatientService {
         );
       }
 
-      const userCleaned: PatientResponse =
-        PatientDto.patientDTO(patientCreated);
+      const userCleaned: CustomerResponse =
+        CustomerDto.customerDTO(customerCreated);
       return userCleaned;
     } catch (err: any) {
       const error: HttpError = new HttpError(
@@ -66,17 +66,17 @@ export default class PatientService {
     }
   }
 
-  static async loginPatient(
-    patient: PatientLoginFields
+  static async loginCustomer(
+    customer: CustomerLoginFields
   ): Promise<{ token: string }> {
     try {
-      const patientDao = new UserDAO(Patient);
+      const customerDao = new UserDAO(Customer);
 
-      const patientFound = await patientDao.find({
-        email: patient.email,
+      const customerFound = await customerDao.find({
+        email: customer.email,
       });
 
-      if (!patientFound || patientFound.length === 0) {
+      if (!customerFound || customerFound.length === 0) {
         throw new HttpError(
           "User not found",
           "USER_NOT_FOUND",
@@ -84,9 +84,9 @@ export default class PatientService {
         );
       }
 
-      const user = patientFound[0];
+      const user = customerFound[0];
 
-      const isPasswordValid = await compare(patient.password, user.password!);
+      const isPasswordValid = await compare(customer.password, user.password!);
       if (!isPasswordValid) {
         throw new HttpError(
           "Invalid credentials",

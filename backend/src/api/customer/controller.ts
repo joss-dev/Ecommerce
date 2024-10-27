@@ -1,28 +1,28 @@
 import { Request, Response } from "express";
-import { PatientCreateFields, PatientLoginFields, PatientResponse } from "./interface";
+import { CustomerCreateFields, CustomerLoginFields, CustomerResponse } from "./interface";
 import { MulterFiles } from "../../interfaces/file.interface";
 import apiResponse from "../../utils/apiResponse.utils";
 import HTTP_STATUS from "../../constants/HttpStatus";
 import HttpError from "../../utils/HttpError.utils";
-import PatientService from "./service";
+import CustomerService from "./service";
 
 
-export default class patientController {
+export default class customerController {
     static async register(req: Request, res: Response): Promise<void> {
         // FIXME: Check if the requester is an admin, and admit only admins to create users with roles
         try {
-            const patientData: PatientCreateFields = req.body;
+            const customerData: CustomerCreateFields = req.body;
             const files = req.files as MulterFiles;
             if (files && files["profile"] && files["profile"][0]) {
-                patientData.avatarUrl =
+                customerData.avatarUrl =
                     files.profile[0].path.split("public")[1];
             }
 
-            const patient: PatientResponse = await PatientService.createPatient(
-                patientData
+            const customer: CustomerResponse = await CustomerService.createCustomer(
+                customerData
             );
 
-            const response = apiResponse(true, patient);
+            const response = apiResponse(true, customer);
             res.status(HTTP_STATUS.CREATED).json(response);
         } catch (err: any) {
             // FIXME: Replace with a next function and a logger
@@ -40,9 +40,9 @@ export default class patientController {
 
     static async login(req: Request, res: Response): Promise<void> {
         try {
-            const patientData : PatientLoginFields = req.body;
+            const customerData : CustomerLoginFields = req.body;
 
-            const token = await PatientService.loginPatient(patientData);
+            const token = await CustomerService.loginCustomer(customerData);
 
             if (!token) {
                 throw new HttpError(

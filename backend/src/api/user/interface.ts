@@ -18,3 +18,12 @@ export interface IUser extends Document {
     updatedAt?: Date;
     updatedBy?: string;
 }
+
+export interface UserResponse {
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    email: string;
+    role: string;
+    avatarUrl?: string;
+}

@@ -1,7 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function NavBar() {
+  const { user } = useAuth();
+
   return (
     <nav className="bg-[#f6f5f5] shadow-md p-4">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
@@ -55,7 +59,11 @@ export default function NavBar() {
                 width={24}
                 height={24}
               />
-              <span className="text-gray-700">Ingresar</span>
+              {user ? ( 
+                  <span className="text-gray-700">{user.email}</span>
+              ) : (
+                <span className="text-gray-700">Ingresar</span>
+              )}
             </div>
           </Link>
 

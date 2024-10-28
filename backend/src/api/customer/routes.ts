@@ -17,6 +17,7 @@ customerRouter.post(
     customerController.register
 );
 
+
 customerRouter.post(
     "/login",
     schemaValidator(customerLoginPayloadValidator, null),

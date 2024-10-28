@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/app/context/AuthContext";
 
 const montserratFont = Montserrat({
   weight: ["400", "700"],
@@ -18,8 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <AuthProvider> 
     <html lang="en">
-      <body className={montserratFont.className}>{children}</body>
+      <body className={montserratFont.className}>
+        
+          {children}
+        
+        </body>
     </html>
+    </AuthProvider>
   );
 }

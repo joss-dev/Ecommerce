@@ -1,20 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
+import { ProductCardProps } from "@/app/types/types";
+import Link from 'next/link';
 
-// Asegúrate de tener el tipo definido
-interface ProductCardProps {
-  imageUrl: string;
-  title: string;
-  description: string;
-  price: number;
-  oldPrice?: number;
-  discount?: string;
-  rating: number;
-  reviewCount: number;
-}
-
-// Declaración correcta de la función y desestructuración de los props
 export default function ProductCard({
+  id,
   imageUrl,
   title,
   description,
@@ -25,6 +15,7 @@ export default function ProductCard({
   reviewCount
 }: ProductCardProps) {
   return (
+    <Link href={`/products/${id}`}>
     <div className="max-w-xs bg-white rounded-lg shadow-md p-4 transition-transform hover:scale-105">
       <div className="relative w-full h-48">
         <Image
@@ -67,5 +58,6 @@ export default function ProductCard({
         </div>
       </div>
     </div>
+    </Link>
   );
 }

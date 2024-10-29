@@ -1,9 +1,11 @@
+// authContext.tsx
 "use client";
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { IUser } from "@/app/types/User";
+import { IUser } from "@/app/types/types";
 
 interface AuthContextType {
-  user: IUser | null;  // Cambiado a IUser | null
+  user: IUser | null;
   token: string | null;
   login: (userData: IUser, token: string) => void;
   logout: () => void;
@@ -12,22 +14,25 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<IUser | null>(null); 
+  const [user, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // Verificar si hay un token en el localStorage
-    const savedToken = localStorage.getItem("token");
+    // Verifica el token en las cookies (Next.js lo incluirá en la solicitud al servidor automáticamente)
+    const savedToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1];
+      
     if (savedToken) {
       setToken(savedToken);
-      console.log(savedToken)
-      fetchUserData(savedToken)
+      fetchUserData(savedToken);
     }
   }, []);
 
   const fetchUserData = async (token: string) => {
     try {
-      const response = await fetch("http://localhost:8081/api/user/me", { // Cambia la URL según tu API
+      const response = await fetch("http://localhost:8081/api/user/me", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -35,8 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       });
       if (response.ok) {
         const data = await response.json();
-        console.log("estamos aca beby");
-        setUser(data.payload); // Ajusta según la estructura de tu respuesta
+        setUser(data.payload);
       } else {
         console.error("Failed to fetch user data");
       }
@@ -48,13 +52,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = (userData: IUser, token: string) => {
     setUser(userData);
     setToken(token);
-    localStorage.setItem("token", token); // Almacena el token
+    document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // Guarda el token en cookies
   };
 
   const logout = () => {
-    setUser(null); // Cambiado a null para indicar que no hay usuario
+    setUser(null);
     setToken(null);
-    localStorage.removeItem("token"); // Elimina el token
+    document.cookie = "token=; path=/; max-age=0"; // Elimina el token de cookies
   };
 
   return (
@@ -66,7 +70,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;

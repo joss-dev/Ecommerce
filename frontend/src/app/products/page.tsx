@@ -1,4 +1,3 @@
-"use client";
 import { Suspense } from "react";
 import ProductCard from "@/app/components/card-product";
 import { CardSkeleton } from "@/app/ui/skeletons";
@@ -27,7 +26,7 @@ const ProductList = async () => {
   );
 };
 
-export default function SpecialOffers() {
+export default function Products() {
   return (
     <Suspense fallback={
       <div className="flex flex-wrap justify-center gap-4 m-2">

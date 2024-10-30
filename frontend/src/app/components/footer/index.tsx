@@ -1,6 +1,12 @@
+"use client";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+    const pathname = usePathname();
+    const isAuthRoute = pathname === "/login" || pathname === "/signup";
+
+    if (isAuthRoute) return null;
     return (
         <footer className="bg-pink-400 py-4 mt-auto">
             <div className="container mx-auto flex justify-between items-center">

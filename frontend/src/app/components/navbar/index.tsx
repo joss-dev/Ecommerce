@@ -2,9 +2,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/app/context/AuthContext";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
   const { user } = useAuth();
+  
+  const pathname = usePathname();
+  const isAuthRoute = pathname === "/login" || pathname === "/signup";
+
+  if (isAuthRoute) return null;
+
 
   return (
     <nav className="bg-[#f6f5f5] shadow-md p-4">

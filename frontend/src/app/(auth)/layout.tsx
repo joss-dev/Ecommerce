@@ -1,4 +1,3 @@
-// app/auth/layout.js
 import Logo from "@/app/components/logo";
 
 export default function AuthLayout({

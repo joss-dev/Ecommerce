@@ -30,11 +30,11 @@ export default function LoginForm() {
 
       const data = await response.json();
       console.log("Login successful:", data);
-      // Acceder al token desde el payload
+     
       const token = data.payload.token;
 
-      // Almacenar el token en localStorage
-      localStorage.setItem("token", token); // Almacena el token
+     
+      localStorage.setItem("token", token); 
       login({ email }, token);
       router.push('/')
     } catch (err) {

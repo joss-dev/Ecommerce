@@ -1,4 +1,3 @@
-"use client";
 import { Suspense } from "react";
 import ProductCard from "@/app/components/card-product";
 import { CardSkeleton } from "@/app/ui/skeletons";

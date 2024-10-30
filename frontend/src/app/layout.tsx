@@ -5,7 +5,6 @@ import { AuthProvider } from "@/app/context/AuthContext";
 import NavBar from "./components/navbar";
 import Footer from "./components/footer";
 
-
 const montserratFont = Montserrat({
   weight: ["400", "700"],
   subsets: ["latin"],
@@ -21,7 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
 
   return (
     <AuthProvider> 

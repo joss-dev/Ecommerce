@@ -34,3 +34,21 @@ export interface ProductCardProps {
     rating: number;
     reviewCount: number;
 }
+
+
+export interface CartContextType {
+    cartItems: CartItem[];
+    addItem: (item: CartItem) => void;
+    removeItem: (id: string) => void;
+    clearCart: () => void;
+    getTotal: () => number;
+}
+
+
+export interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
+  

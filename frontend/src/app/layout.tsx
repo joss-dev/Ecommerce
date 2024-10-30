@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/app/context/AuthContext";
 import NavBar from "./components/navbar";
 import Footer from "./components/footer";
+import { CartProvider } from "./context/CartContext";
 
 const montserratFont = Montserrat({
   weight: ["400", "700"],
@@ -22,14 +23,18 @@ export default function RootLayout({
 }>) {
 
   return (
-    <AuthProvider> 
+
     <html lang="en">
       <body className={montserratFont.className}>
-        <NavBar />
-          {children}
-        <Footer />
-        </body>
+        <AuthProvider>
+          <CartProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </CartProvider>
+        </AuthProvider>
+      </body>
     </html>
-    </AuthProvider>
+
   );
 }

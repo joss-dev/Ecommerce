@@ -1,4 +1,3 @@
-// authContext.tsx
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
@@ -17,19 +16,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
+  
   useEffect(() => {
-    // Verifica el token en las cookies (Next.js lo incluirá en la solicitud al servidor automáticamente)
     const savedToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("token="))
       ?.split("=")[1];
-      
+
     if (savedToken) {
       setToken(savedToken);
       fetchUserData(savedToken);
     }
   }, []);
 
+  
   const fetchUserData = async (token: string) => {
     try {
       const response = await fetch("http://localhost:8081/api/user/me", {
@@ -49,16 +49,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+ 
   const login = (userData: IUser, token: string) => {
     setUser(userData);
     setToken(token);
-    document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // Guarda el token en cookies
+   
+    document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`;
   };
 
+  
   const logout = () => {
     setUser(null);
     setToken(null);
-    document.cookie = "token=; path=/; max-age=0"; // Elimina el token de cookies
+    
+    document.cookie = "token=; path=/; max-age=0";
   };
 
   return (
@@ -67,6 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     </AuthContext.Provider>
   );
 };
+
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

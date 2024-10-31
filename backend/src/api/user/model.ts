@@ -25,7 +25,7 @@ const userSchema = new Schema<IUser>(
         role: {
             type: String,
             enum: Roles,
-            default: Roles.PATIENT,
+            default: Roles.CUSTOMER,
             required: true,
         },
         status: { type: Boolean, required: true, default: true },

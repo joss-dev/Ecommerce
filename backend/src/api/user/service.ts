@@ -31,8 +31,11 @@ export default class UserService {
         );
       }
 
+      console.log("este es el valor del decoded",decoded)
+      console.log("este es el valor del decoded ID: ",decoded.id)
+
       const userFound = await customerDao.find({
-        id: decoded._id,
+        _id: decoded.id,
       });
 
       if (!userFound || userFound.length === 0) {

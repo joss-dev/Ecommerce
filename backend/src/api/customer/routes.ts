@@ -24,4 +24,10 @@ customerRouter.post(
     customerController.login
 );
 
+customerRouter.post(
+    "/logout",
+    
+    customerController.logout
+);
+
 export default customerRouter;

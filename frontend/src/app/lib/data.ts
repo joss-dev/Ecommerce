@@ -1,6 +1,8 @@
 export const fetchProducts = async () => {
     await new Promise(resolve => setTimeout(resolve, 3000)); // Simulando un retardo
-    const response = await fetch("http://localhost:8081/api/product/");
+    const response = await fetch("http://localhost:8081/api/product/", {
+        cache: "no-store",
+    });
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
     }
@@ -10,7 +12,9 @@ export const fetchProducts = async () => {
 
 export const getProductByID = async (id : string) => {
     await new Promise(resolve => setTimeout(resolve, 3000)); 
-    const response = await fetch(`http://localhost:8081/api/product/${id}`);
+    const response = await fetch(`http://localhost:8081/api/product/${id}`, {
+        cache: "no-store",
+    });
     
     if (!response.ok) {
         throw new Error("Error al obtener el producto");

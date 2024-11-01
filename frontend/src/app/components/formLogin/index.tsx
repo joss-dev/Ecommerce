@@ -18,6 +18,7 @@ export default function LoginForm() {
     try {
       const response = await fetch("http://localhost:8081/api/auth/login", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -30,12 +31,8 @@ export default function LoginForm() {
 
       const data = await response.json();
       console.log("Login successful:", data);
-     
-      const token = data.payload.token;
-
-     
-      localStorage.setItem("token", token); 
-      login({ email }, token);
+      
+      login({ email });
       router.push('/')
     } catch (err) {
       console.error("Error during login:", err);

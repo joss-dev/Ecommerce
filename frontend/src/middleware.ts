@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value; 
+  const token = request.cookies.get("accessToken")?.value; 
   const url = request.nextUrl.clone();
 
   const isAuthenticated = !!token;
-
+  console.log("valor del authenticated: ", isAuthenticated)
+  console.log("valor del token: ", token)
   
   const unauthenticatedRoutes = ["/login", "/signup"];
   if (isAuthenticated && unauthenticatedRoutes.includes(url.pathname)) {

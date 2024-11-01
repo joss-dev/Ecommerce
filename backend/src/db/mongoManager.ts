@@ -39,4 +39,11 @@ export default class MongoManager {
         }
         return MongoManager._instance;
     }
+    public static async disconnect(): Promise<void> {
+        if (MongoManager._instance) {
+            await mongoose.disconnect();
+            MongoManager._instance = null;
+            console.log("db connection closed");
+        }
+    }
 }

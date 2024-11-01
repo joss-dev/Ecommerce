@@ -6,7 +6,6 @@ const userRouter = Router();
 
 userRouter.post(
     "/me", 
-    authMiddleware, 
     userController.getUserInfo
 );
 export default userRouter;

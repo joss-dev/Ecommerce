@@ -1,6 +1,7 @@
 // LIBRARIES
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
+import crypto from "crypto";
 // MODELS
 import Customer from "./model";
 // DAOS
@@ -68,7 +69,7 @@ export default class CustomerService {
 
   static async loginCustomer(
     customer: CustomerLoginFields
-  ): Promise<{ token: string }> {
+  ): Promise<{ accessToken: string, refreshToken: string, userContext: string  }> {
     try {
       const customerDao = new UserDAO(Customer);
 
@@ -95,17 +96,32 @@ export default class CustomerService {
         );
       }
 
-      const token = sign(
+      // Generar el contexto de usuario
+      const userContext = crypto.randomBytes(16).toString("hex");
+
+      const accessToken = sign(
         {
           id: user._id,
           role: user.role,
-          nbf: Math.floor(Date.now() / 1000),
+          userContext: crypto.createHash("sha256").update(userContext).digest("hex"),
         },
         process.env.JWT_SECRET!,
-        { expiresIn: "1h" }
+        { expiresIn: "15m" }
       );
 
-      return { token };
+      const refreshToken = sign(
+        {
+          id: user._id,
+          role: user.role,
+          userContext: crypto.createHash("sha256").update(userContext).digest("hex"),
+        },
+        process.env.JWT_SECRET!,
+        { expiresIn: "30d" }
+      );
+
+      return { accessToken, refreshToken, userContext };
+
+     
     } catch (err: any) {
       const error: HttpError = new HttpError(
         err.description || err.message,

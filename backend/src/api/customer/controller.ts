@@ -42,17 +42,32 @@ export default class customerController {
         try {
             const customerData : CustomerLoginFields = req.body;
 
-            const token = await CustomerService.loginCustomer(customerData);
+            const { accessToken, refreshToken, userContext } = await CustomerService.loginCustomer(customerData);
 
-            if (!token) {
+            
+
+            if (!accessToken) {
                 throw new HttpError(
                     "Invalid credentials",
                     "INVALID_CREDENTIALS",
                     HTTP_STATUS.UNAUTHORIZED
                 );
             }
+            res.cookie("accessToken", accessToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                maxAge: 15 * 60 * 1000, // 15 minutos
+              });
 
-            const response = apiResponse(true, token);
+              res.cookie("userContext", userContext, {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+                maxAge: 30 * 24 * 60 * 60 * 1000, // 30 días
+              });
+
+            const response = apiResponse(true, {refreshToken});
             res.status(HTTP_STATUS.OK).json(response);
         } catch (err : any) {
             const response = apiResponse(
@@ -65,5 +80,12 @@ export default class customerController {
             );
             res.status(err.status || HTTP_STATUS.SERVER_ERROR).json(response);
         }
+    }
+
+    static async logout(req: Request, res: Response): Promise<void> {
+        // Limpiar las cookies que contienen el token de acceso y el contexto de usuario
+        res.clearCookie("accessToken");
+        res.clearCookie("userContext");
+        res.status(200).json({ message: "Logout successful" });
     }
 }

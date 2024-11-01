@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import { useCart } from "@/app/context/CartContext";
 
 export default function NavBar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { cartItems } = useCart();
   const pathname = usePathname();
   const isAuthRoute = pathname === "/login" || pathname === "/signup";
-
+  
   if (isAuthRoute) return null;
 
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -95,6 +95,9 @@ export default function NavBar() {
               </span>
             )}
           </Link>
+            <button onClick={logout}>
+              cerrar sesion
+            </button>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 export const fetchProducts = async () => {
-    await new Promise(resolve => setTimeout(resolve, 3000)); // Simulando un retardo
+    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulando un retardo
     const response = await fetch("http://localhost:8081/api/product/", {
         cache: "no-store",
     });
@@ -11,7 +11,7 @@ export const fetchProducts = async () => {
 };
 
 export const getProductByID = async (id : string) => {
-    await new Promise(resolve => setTimeout(resolve, 3000)); 
+    await new Promise(resolve => setTimeout(resolve, 1500)); 
     const response = await fetch(`http://localhost:8081/api/product/${id}`, {
         cache: "no-store",
     });

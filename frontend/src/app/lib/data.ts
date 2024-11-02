@@ -23,3 +23,5 @@ export const getProductByID = async (id : string) => {
     const data = await response.json();
     return data.payload; 
 };
+
+

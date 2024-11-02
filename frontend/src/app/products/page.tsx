@@ -16,8 +16,8 @@ const ProductList = async () => {
           title={product.name}
           description={product.description}
           price={product.price}
-          oldPrice={product.price * 1.2} 
-          discount="20%" 
+          discountedPrice={product.discountedPrice} 
+          discount={product.discount}
           rating={product.stars}
           reviewCount={100} 
         />

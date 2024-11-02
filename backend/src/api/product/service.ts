@@ -17,6 +17,11 @@ export default class ProductService {
         productData: ProductCreateFields
     ): Promise<ProductResponse> {
         try {
+            if (productData.discount) {
+                productData.discountedPrice = productData.price * (1 - productData.discount / 100);
+            } else {
+                productData.discountedPrice = productData.price; 
+            }
             const productCreated = await productDAO.create(productData);
             return ProductDto.productDTO(productCreated);
         } catch (err: any) {

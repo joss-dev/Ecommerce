@@ -7,9 +7,11 @@ import { Product } from "@/app/types/types";
 const ProductList = async () => {
   try {
     const products = await fetchProducts();
+    const limitedProducts = products.slice(0, 3);
+
     return (
       <div className="flex flex-wrap justify-center gap-4 m-2">
-        {products.map((product: Product) => (
+        {limitedProducts.map((product: Product) => (
           <ProductCard
             id={product.id}
             key={product.id}
@@ -17,8 +19,8 @@ const ProductList = async () => {
             title={product.name}
             description={product.description}
             price={product.price}
-            oldPrice={product.price * 1.2}
-            discount="20%"
+            discountedPrice={product.discountedPrice}
+            discount={product.discount}
             rating={product.stars}
             reviewCount={100}
           />

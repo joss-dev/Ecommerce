@@ -52,7 +52,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <Image
             src={product.imageUrl || ""}
             alt={product.name}
-            width={500} 
+            width={500}
             height={500}
             className="w-full h-full object-center object-cover"
           />
@@ -60,12 +60,18 @@ export default function Page({ params }: { params: { id: string } }) {
 
         {/* Información del producto */}
         <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
-          <div className="mt-3 flex items-center">
-            <p className="text-3xl font-bold text-gray-900">${product.price}</p>
-            <p className="ml-2 text-lg text-gray-500">${product.price}</p>
-            <span className="ml-2 text-sm font-medium text-red-600">{product.price}% Off</span>
-          </div>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
+  <div className="mt-3 flex items-center">
+    {product.discount && product.discount > 0 ? (
+      <>
+        <p className="text-3xl font-bold text-gray-900">${product.discountedPrice}</p>
+        <span className="ml-2 text-sm font-medium text-red-600">{product.discount}% Off</span>
+        <p className="ml-2 text-lg line-through text-gray-500">${product.price}</p>
+      </>
+    ) : (
+      <p className="text-3xl font-bold text-gray-900">${product.price}</p>
+    )}
+  </div>
 
           {/* Reseñas */}
           <div className="mt-3">

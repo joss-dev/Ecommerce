@@ -49,6 +49,8 @@ export interface ProductResponse {
     price: number;
     category: string;
     stock: number;
+    discount?: number,
+    discountedPrice?: number,
     imageUrl?: string;
     createdBy?: string;
     createdAt?: Date;

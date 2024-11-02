@@ -16,6 +16,8 @@ export interface Product {
     price: number;
     category: string;
     stock: number;
+    discount: number;
+    discountedPrice: number;
     stars : number;
     imageUrl?: string;
     createdAt: string;
@@ -30,7 +32,8 @@ export interface ProductCardProps {
     description: string;
     price: number;
     oldPrice?: number;
-    discount?: string;
+    discount?: number;
+    discountedPrice?: number;
     rating: number;
     reviewCount: number;
 }

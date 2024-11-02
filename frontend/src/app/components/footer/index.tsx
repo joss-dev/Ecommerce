@@ -8,7 +8,7 @@ export default function Footer() {
 
     if (isAuthRoute) return null;
     return (
-        <footer className="bg-pink-400 py-4 mt-auto">
+        <footer className="bg-pink-400 py-4  mt-20">
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo y título a la izquierda */}
                 <div className="flex items-center space-x-2">

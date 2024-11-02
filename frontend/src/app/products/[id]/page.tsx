@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { getProductByID } from "@/app/lib/data";
 import { Product } from "@/app/types/types";

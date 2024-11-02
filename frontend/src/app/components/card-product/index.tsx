@@ -21,7 +21,7 @@ export default function ProductCard({
         <Image
           src={imageUrl}
           alt={title}
-          layout="fill"
+          fill
           objectFit="cover"
           className="rounded-lg"
         />

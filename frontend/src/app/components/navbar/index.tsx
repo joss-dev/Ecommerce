@@ -27,6 +27,7 @@ export default function NavBar() {
               alt="Logo"
               width={156}
               height={156}
+              priority
             />
           </Link>
         </div>
@@ -46,6 +47,7 @@ export default function NavBar() {
               width={20}
               height={20}
               className="absolute left-3 top-3"
+              priority
             />
             
             <Image
@@ -54,6 +56,7 @@ export default function NavBar() {
               width={14}
               height={14}
               className="absolute right-3 top-3"
+              priority
             />
           </div>
         </div>
@@ -68,6 +71,7 @@ export default function NavBar() {
                 alt="User"
                 width={24}
                 height={24}
+                priority
               />
               {user ? ( 
                   <span className="text-gray-700">{user.email}</span>
@@ -84,6 +88,7 @@ export default function NavBar() {
               alt="Favorites"
               width={24}
               height={24}
+              priority
             />
           </Link>
 
@@ -110,6 +115,7 @@ export default function NavBar() {
             width={20}
             height={20}
             className="absolute left-3 top-2"
+            priority
           />
           {/* Mobile Microphone Icon */}
           <Image
@@ -118,6 +124,7 @@ export default function NavBar() {
             width={20}
             height={20}
             className="absolute right-3 top-2"
+            priority
           />
         </div>
       </div>

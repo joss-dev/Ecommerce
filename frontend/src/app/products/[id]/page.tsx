@@ -4,15 +4,15 @@ import React, { useEffect, useState } from "react";
 import { getProductByID } from "@/app/lib/data";
 import { Product } from "@/app/types/types";
 import { ProductSkeleton } from "@/app/ui/skeletons";
-import { useCart } from "@/app/context/CartContext"; 
-
+import { useCart } from "@/app/context/CartContext";
+import Image from "next/image";
 async function fetchProduct(id: string): Promise<Product | null> {
   const data = await getProductByID(id);
   return data;
 }
 
 export default function Page({ params }: { params: { id: string } }) {
-  const { addItem } = useCart(); 
+  const { addItem } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -50,10 +50,12 @@ export default function Page({ params }: { params: { id: string } }) {
       <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
         {/* Imagen del producto */}
         <div className="w-full aspect-w-1 aspect-h-1 relative rounded-lg overflow-hidden">
-          <img
+          <Image
             src={product.imageUrl || ""}
-            className="w-full h-full object-center object-cover"
             alt={product.name}
+            width={500} 
+            height={500}
+            className="w-full h-full object-center object-cover"
           />
         </div>
 
@@ -73,9 +75,8 @@ export default function Page({ params }: { params: { id: string } }) {
                 {[0, 1, 2, 3, 4].map((rating) => (
                   <svg
                     key={rating}
-                    className={`h-5 w-5 flex-shrink-0 ${
-                      rating < Math.floor(product.stars) ? 'text-yellow-400' : 'text-gray-300'
-                    }`}
+                    className={`h-5 w-5 flex-shrink-0 ${rating < Math.floor(product.stars) ? 'text-yellow-400' : 'text-gray-300'
+                      }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >

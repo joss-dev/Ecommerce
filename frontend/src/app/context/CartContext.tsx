@@ -6,21 +6,25 @@ import { CartContextType, CartItem } from "@/app/types/types";
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    if (typeof window !== 'undefined') {
-      const savedCart = localStorage.getItem('cartItems');
-      return savedCart ? JSON.parse(savedCart) : [];
-    }
-    return []; 
-  });
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
- 
+  // Carga inicial de cartItems desde localStorage solo en el cliente
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("cartItems");
+      if (savedCart) {
+        setCartItems(JSON.parse(savedCart));
+      }
+      setIsInitialized(true); // Señal de que se ha cargado el estado inicial
     }
-  }, [cartItems]);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && isInitialized) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems, isInitialized]);
 
   const addItem = (item: CartItem) => {
     setCartItems((prevItems) => {
@@ -41,8 +45,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const clearCart = () => {
     setCartItems([]);
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('cartItems'); // Limpiar el localStorage
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cartItems");
     }
   };
 

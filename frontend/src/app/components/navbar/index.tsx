@@ -3,17 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/app/context/AuthContext";
 import { usePathname } from "next/navigation";
-import { useCart } from "@/app/context/CartContext";
+import Cart from "../cart";
+
 
 export default function NavBar() {
   const { user, logout } = useAuth();
-  const { cartItems } = useCart();
+  
   const pathname = usePathname();
   const isAuthRoute = pathname === "/login" || pathname === "/signup";
   
   if (isAuthRoute) return null;
 
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+ 
 
   return (
     <nav className="bg-[#f6f5f5] shadow-md p-4">
@@ -86,15 +87,8 @@ export default function NavBar() {
             />
           </Link>
 
-          <Link href="/cart" className="relative">
-            <Image src="/icons/carrito.png" alt="Cart" width={24} height={24} />
-            {/* Muestra el número total de artículos en el carrito */}
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1">
-                {totalItems}
-              </span>
-            )}
-          </Link>
+              <Cart/>
+          
             <button onClick={logout}>
               cerrar sesion
             </button>

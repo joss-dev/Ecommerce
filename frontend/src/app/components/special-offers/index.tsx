@@ -7,7 +7,10 @@ import { Product } from "@/app/types/types";
 const ProductList = async () => {
   try {
     const products = await fetchProducts();
-    const limitedProducts = products.slice(0, 3);
+
+    const discountedProducts = products.filter((product: Product) => product.discount && product.discount > 0);
+
+    const limitedProducts = discountedProducts.slice(0, 3);
 
     return (
       <div className="flex flex-wrap justify-center gap-4 m-2">

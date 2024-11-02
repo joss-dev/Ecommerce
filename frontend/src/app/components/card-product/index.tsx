@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { ProductCardProps } from "@/app/types/types";
 import Link from 'next/link';
 
+
 export default function ProductCard({
   id,
   imageUrl,
@@ -14,6 +15,9 @@ export default function ProductCard({
   rating,
   reviewCount
 }: ProductCardProps) {
+  const truncatedDescription = description.length > 10 
+    ? description.slice(0, 20) + '…' 
+    : description;
   return (
     <Link href={`/products/${id}`}>
       <div className="w-64 h-96 max-w-xs bg-white rounded-lg shadow-md p-4 transition-transform hover:scale-105">
@@ -28,8 +32,15 @@ export default function ProductCard({
         </div>
 
         <div className="mt-4">
-          <h3 className="text-lg font-bold text-gray-900">{title}</h3>
-          <p className="text-gray-600 text-sm line-clamp-2 mt-2">{description}</p>
+          <h3 className="text-lg font-bold text-gray-900 line-clamp-1">{title}</h3>
+          <p className="text-gray-600 text-sm line-clamp-2 mt-2 relative group">
+            {truncatedDescription}
+            {description.length > 100 && (
+              <span className="absolute bottom-full mb-1 left-0 w-40 p-2 text-xs bg-gray-700 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                {description}
+              </span>
+            )}
+          </p>
 
           <div className="flex items-center mt-4">
             {discount && discount > 0 ? (

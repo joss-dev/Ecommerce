@@ -89,3 +89,32 @@ export function ProductSkeleton() {
     </div>
   );
 }
+
+
+export function PageProductSkeleton() {
+  return (
+    <div className="p-6 space-y-6">
+      
+      <div className="flex justify-center items-center mb-8">
+        <div className="h-8 w-1/3 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md shadow-sm"></div>
+      </div>
+
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, index) => (
+          <div
+            key={index}
+            className="p-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg shadow-lg animate-[pulse_1.5s_ease-in-out_infinite] space-y-4"
+          >
+           
+            <div className="h-36 bg-gradient-to-r from-gray-300 to-gray-100 rounded-lg shadow-inner"></div>
+
+            
+            <div className="h-5 w-3/4 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md"></div>
+            <div className="h-4 w-1/2 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
